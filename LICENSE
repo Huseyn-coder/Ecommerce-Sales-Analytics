@@ -19,14 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-NOTE ON DATA
-
-This license applies to the code and documentation in this repository
-(SQL queries, DAX measures, Power Query M scripts, Markdown documentation).
-
-It does NOT apply to the underlying dataset. The Brazilian E-Commerce Public
-Dataset by Olist is distributed by its authors under CC BY-NC-SA 4.0 and is
-not redistributed in this repository. See 04_documentation/license_note.txt.

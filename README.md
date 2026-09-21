@@ -2,7 +2,7 @@
 
 **Power BI · SQL · Power Query (M) · DAX**
 
-Braziliya e-ticarət marketplace-i Olist-in 2016–2018 satış datası üzərində qurulmuş uçdan-uca analitika layihəsi: xam CSV-lərdən data keyfiyyəti yoxlamasına, star schema modelə, DAX measure-lərə və 4 səhifəlik interaktiv hesabata qədər.
+Braziliya e-ticarət marketplace-i Olist-in 2016–2018 satış datası üzərində qurulmuş analitika layihəsi: xam CSV-lərdən data keyfiyyəti yoxlamasına, star schema modelə, DAX measure-lərə və 4 səhifəlik interaktiv hesabata qədər.
 
 ## Layihə nə cavab verir
 
