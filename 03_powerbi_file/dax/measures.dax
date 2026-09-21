@@ -1,0 +1,81 @@
+// E-commerce Sales & Customer Analytics — DAX measure-lər
+// Hamısı `_Measures` cədvəlindədir. Yanındakı rəqəm SQL/Python nəzarət rəqəmidir və Power BI-da yoxlanılıb (2026-09-18).
+//
+// Kəsim haqqında: aşağıdakı nəzarət rəqəmləri BÜTÜN dövr üzrədir (2016-09 – 2018-10).
+// Hesabat səhifələri isə `is_trend_period` (2017-01 – 2018-08) filtri ilə işləyir, ona görə
+// dashboard-da bir qədər fərqli görünür: AOV 137,42 → 137,37 · gecikmə 6,77% → 6,79% ·
+// təkrar alış 3,12% → 3,11%. Fərq səhv deyil, kəsim fərqidir.
+
+// ---------- Satış ----------
+
+// 13.591.643,70 — bütün sifarişlər üzrə məhsul satışı (D7)
+Gross Sales = SUM(FactSales[price])
+
+// 13.494.400,74 — canceled və unavailable çıxılmaqla (D15)
+Net Sales = CALCULATE([Gross Sales], FactSales[is_net_sale] = TRUE)
+
+// 2.251.909,54 — çatdırılma haqqı; satışa daxil edilmir
+Total Freight = SUM(FactSales[freight_value])
+
+// ---------- Sifariş ----------
+
+// 99.441 — bütün sifarişlər (D17)
+Total Orders = DISTINCTCOUNT(FactOrders[order_id])
+
+// 98.207 — canceled və unavailable çıxılmaqla
+Net Orders = CALCULATE(COUNTROWS(FactOrders), NOT FactOrders[order_status] IN {"canceled", "unavailable"})
+
+// 98.666 — məhsul sətri olan sifarişlər (775 sifarişin məhsul sətri yoxdur)
+Orders with Sales = DISTINCTCOUNT(FactSales[order_id])
+
+// 98.199 — AOV-un məxrəci (D17)
+Net Orders with Sales = CALCULATE(DISTINCTCOUNT(FactSales[order_id]), FactSales[is_net_sale] = TRUE)
+
+// 137,42 — orta sifariş dəyəri; satışı olmayan sifarişlər məxrəcə daxil deyil
+Average Order Value = DIVIDE([Net Sales], [Net Orders with Sales])
+
+// ---------- Müştəri ----------
+
+// 96.096 — real müştəri; customer_id yox, customer_unique_id (D6)
+Total Customers = DISTINCTCOUNT(DimCustomer[customer_unique_id])
+
+// 2.997 — 1-dən çox sifarişi olan müştərilər
+Repeat Customers = COUNTROWS(FILTER(VALUES(DimCustomer[customer_unique_id]), CALCULATE(DISTINCTCOUNT(FactOrders[order_id])) > 1))
+
+// 3,12%
+Repeat Customer Rate = DIVIDE([Repeat Customers], [Total Customers])
+
+// ---------- Çatdırılma və rəy ----------
+
+// 96.470 — delivered VƏ çatdırılma tarixi dolu olan sifarişlər (D18)
+Delivered Orders = CALCULATE(COUNTROWS(FactOrders), FactOrders[is_delivered] = TRUE)
+
+// 12,56 gün — alışdan müştəriyə çatdırılmaya qədər (D18, D19)
+Avg Delivery Days = AVERAGE(FactOrders[delivery_days])
+
+// 6.534 — çatdırılma tarixi təxmini tarixdən gec olan sifarişlər
+Late Orders = CALCULATE(COUNTROWS(FactOrders), FactOrders[is_late] = TRUE)
+
+// 6,77% — gecikmə çatdırılmış sifarişlərə nisbətdə ölçülür
+Late Delivery Rate = DIVIDE([Late Orders], [Delivered Orders])
+
+// 4,0864 — sifarişə 1 rəy; rəyi olmayan sifarişlər boşdur, 0 kimi sayılmır (D13, D14)
+Avg Review Score = AVERAGE(FactOrders[review_score])
+
+// 98.673 — rəyi olan sifarişlər
+Orders with Review = CALCULATE(COUNTROWS(FactOrders), NOT ISBLANK(FactOrders[review_score]))
+
+// ---------- Zaman ----------
+
+// Keçən ilin eyni dövrü; DimDate date table kimi işarələnib
+Net Sales PY = CALCULATE([Net Sales], SAMEPERIODLASTYEAR(DimDate[Date]))
+
+// İllik artım faizi
+Net Sales YoY % = DIVIDE([Net Sales] - [Net Sales PY], [Net Sales PY])
+
+
+// --- Kateqoriya kəsimi üçün (FactSales -> FactOrders filtr axını) ---
+// Kateqoriya FactSales-i filtrləyir; rəy/çatdırılma FactOrders-dədir.
+// Filtr geri axmadığı üçün CROSSFILTER ilə müvəqqəti iki istiqamətli edilir.
+Avg Review Score by Product = CALCULATE(AVERAGE(FactOrders[review_score]), CROSSFILTER(FactSales[order_id], FactOrders[order_id], Both))
+Avg Delivery Days by Product = CALCULATE(AVERAGE(FactOrders[delivery_days]), CROSSFILTER(FactSales[order_id], FactOrders[order_id], Both))

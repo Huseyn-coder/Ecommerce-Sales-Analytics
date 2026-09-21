@@ -1,0 +1,24 @@
+﻿check_name,affected_rows
+A01 tarix formatı: purchase_timestamp 19 simvol deyil,0
+"A02 delivered statusu, amma müştəriyə çatdırılma tarixi boş",8
+"A03 delivered deyil, amma müştəriyə çatdırılma tarixi var",6
+A04 approved_at boş (bütün statuslar),160
+A05 approved_at < purchase_timestamp,0
+A06 carrier tarixi < purchase_timestamp,166
+A07 müştəriyə çatdırılma < purchase_timestamp,0
+A08 müştəriyə çatdırılma < carrier tarixi,23
+A09 estimated_delivery < purchase_timestamp,0
+B01 price <= 0,0
+B02 freight_value < 0,0
+"B03 freight_value = 0 (pulsuz çatdırılma, məlumat üçün)",383
+C01 payment_value <= 0,9
+C02 payment_type = not_defined,3
+C03 payment_installments = 0,2
+C04 ödəniş sətri olmayan sifariş,1
+C05 ödəniş cəmi ilə (price + freight) arasında 1-dən çox fərq olan sifariş,249
+D01 review_score 1–5 aralığından kənar,0
+D02 review_answer_timestamp < review_creation_date,0
+E01 çəki/ölçü boş olan məhsul,2
+E02 unikal customer_state sayı (məlumat üçün),27
+E03 unikal seller_state sayı (məlumat üçün),23
+"E04 unikal müştəri (customer_unique_id, məlumat üçün)",96096

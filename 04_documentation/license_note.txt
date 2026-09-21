@@ -1,0 +1,5 @@
+Data source: Brazilian E-Commerce Public Dataset by Olist (Kaggle)
+https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+License: CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+Publicly available dataset was used for educational and portfolio purposes.
+Raw data files are not redistributed in this repository; download them from the Kaggle link above.

@@ -1,0 +1,9 @@
+﻿check_name,orphans
+order_items.order_id -> orders,0
+order_items.product_id -> products,0
+order_items.seller_id -> sellers,0
+orders.customer_id -> customers,0
+payments.order_id -> orders,0
+reviews.order_id -> orders,0
+kateqoriya: tərcüməsi olmayan,2
+kateqoriya: boş olan məhsul,610

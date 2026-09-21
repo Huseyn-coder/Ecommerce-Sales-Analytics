@@ -1,0 +1,13 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Power Query (M) faylları .m uzantılıdır və GitHub onları MATLAB/Wolfram
+# kimi tanıyır. Dil statistikasından çıxarılır ki, repo düzgün görünsün.
+*.m linguist-detectable=false
+
+# SQL sorğularının nəticələri data faylıdır, mənbə kodu deyil
+02_sql/results/*.csv linguist-generated=true
+
+# Binar fayllar
+*.pbix binary
+*.png binary

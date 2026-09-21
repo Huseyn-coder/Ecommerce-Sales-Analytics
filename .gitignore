@@ -1,0 +1,16 @@
+# Xam data GitHub-a yüklənmir (CC BY-NC-SA 4.0; mənbə linki README-də verilir)
+01_raw_data/*.csv
+*.zip
+
+# SQLite bazası xam datanı saxlayır və böyükdür
+*.db
+*.sqbpro
+
+# Power BI müvəqqəti və keş faylları
+*.pbix.bak
+~$*
+
+# Sistem faylları
+Thumbs.db
+desktop.ini
+.DS_Store

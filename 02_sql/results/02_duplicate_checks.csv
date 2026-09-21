@@ -1,0 +1,8 @@
+﻿check_name,duplicates
+orders.order_id,0
+customers.customer_id,0
+products.product_id,0
+sellers.seller_id,0
+order_items (order_id + order_item_id),0
+reviews.review_id,814
+reviews.order_id,551
